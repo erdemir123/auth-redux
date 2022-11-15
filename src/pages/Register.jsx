@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
+import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
-import { createUser } from "../auth/firebase";
-
+import { createUser } from "../auth/firebase"
 const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,8 +18,7 @@ const Register = () => {
     const password = registerUser.password;
     createUser(email, password, navigate, displayName, dispatch);
     console.log(email, password, displayName);
-  };
-
+  }
   return (
     <div>
       <section className="h-screen">
