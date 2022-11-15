@@ -4,7 +4,7 @@ export const initialState = {
   user: {
     displayName: "",
     email: "",
-    pasword:""
+    pasword: "",
   },
 };
 
@@ -13,7 +13,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user = action?.payload;
     },
     clearUser: (state, action) => {
       state.user = initialState;
