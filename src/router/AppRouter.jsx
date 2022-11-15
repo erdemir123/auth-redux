@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
@@ -10,8 +10,8 @@ const AppRouter = () => {
   let currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    userObserver(dispatch, currentUser);
-  }, []);
+    userObserver(dispatch);
+  }, [currentUser]);
   return (
     <>
       <Routes>

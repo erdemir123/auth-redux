@@ -49,33 +49,23 @@ export const createUser = async (email, password, navigate, displayName) => {
   }
 };
 
-// export const createUser = async (email, password, navigate, displayName) => {
-//   try {
-//     let userCredential = await createUserWithEmailAndPassword(
-//       auth,
-//       email,
-//       password
-//     );
-
-//     console.log(userCredential);
-//     await updateProfile(auth.user, { displayName: displayName });
-
-//     toastSuccessNotify("Registered is successfully!");
-//     navigate("/home");
-//   } catch (error) {
-//     // toastErrorNotify(error.message);
-//     console.log("hata mesajı");
-//   }
-// };
-export const userObserver = (setCurrentUser) => {
+export const userObserver = (dispatch) => {
   //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const { email, displayName, photoURL } = user;
-      setCurrentUser({ email, displayName, photoURL });
-      console.log(user);
+      dispatch(
+        setUser({
+          username: displayName,
+          email: email,
+        //   password: password,
+        })
+      );
+      
     } else {
-      setCurrentUser(false);
+        dispatch(
+            clearUser()
+          );
       console.log("user signed out");
     }
   });
@@ -83,7 +73,7 @@ export const userObserver = (setCurrentUser) => {
 export const logOut = (navigate, dispatch) => {
   signOut(auth);
   dispatch(clearUser());
-  //   toastWarnNotify("logged out successfully");
+  toastWarnNotify("logged out successfully");
   navigate("/");
 };
 export const signIn = async (username, email, password, navigate, dispatch) => {
@@ -116,7 +106,7 @@ export const signUpProvider = (navigate, dispatch) => {
         })
       );
       navigate("/home");
-      // toastSuccessNotify("Login successfully!!");
+     toastSuccessNotify("Login successfully!!");
     })
     .catch((error) => {
       // Handle Errors here.
