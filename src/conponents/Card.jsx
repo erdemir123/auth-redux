@@ -11,7 +11,7 @@ const Card = ({ item }) => {
   const { isLoading , cardList } = useFetch();
   const modalLike = (id) => {
     setLikeThink(!likethink)
-    if (likethink) {
+    if (!likethink) {
       const mod = cardList?.find((product) => product.id === id);
       mod.like += 1;
       UpdateUser(mod);
@@ -74,7 +74,7 @@ const Card = ({ item }) => {
             />
             <p className="text-lg font-bold text-red-400">{item.like}</p>
           </div>
-          <img src={comment} alt="" className="w-10" />
+          <img src={comment} alt="" className="w-10 mb-1" />
         </div>
       </div>
     </>
