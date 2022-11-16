@@ -16,10 +16,7 @@ const New = () => {
   const {user} = useSelector((state)=>state.auth)
   const [info, setInfo] = useState(initialValues);
   const [count, setCount] = useState();
- 
-
-
-
+  const [like,setLike]=useState(0)
   const handleSubmit = (e) => {
     e.preventDefault();
     let asd = new Date()
@@ -28,8 +25,8 @@ const New = () => {
       weekday:"long",month:"long",day:"numeric",year:"numeric"
     })
     if(info.title && info.content && info.imgUrl){
-      if(count?.length>2){
-        AddUser(info,user,history);
+      if(count?.length>100){
+        AddUser(info,user,history,like);
     setInfo(initialValues);
     navigate("/");
       }
