@@ -47,7 +47,7 @@ const Card = ({ item }) => {
           <p className="text-gray-700 text-[12px] mb-4 w-[90%]  overflow-hidden text-ellipsis">
             {item.history}
           </p>
-          <p className="text-gray-700 text-base mb-4 w-[90%] text-ellipsis overflow-hidden">
+          <p className="text-gray-700 text-base mb-4 w-[90%] text-ellipsis overflow-hidden whitespace-nowrap">
             {item.content}
           </p>
         </div>
