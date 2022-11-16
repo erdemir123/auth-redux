@@ -1,39 +1,243 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
-import konu from "../asset/konu.jpg"
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import konu from "../asset/konu.jpg";
+import like from "../asset/like.png";
+import comment from "../asset/comment.png";
+import Navbar from "../conponents/Navbar";
+import blog from "../asset/blog.png";
+import { DeleteUser, UpdateCard, useFetch } from "../auth/functions";
+import {
+  toastSuccessNotify,
+  toastErrorNotify,
+  toastWarnNotify,
+} from "../helper/Toastfy";
 
 const Details = () => {
-    const {state} = useLocation()
-    const {user} =useSelector((state)=>state.auth)
-    console.log(user?.email);
+  const initialValues = {
+    title: "",
+    imgUrl: "",
+    content: "",
+  };
+  const [editCard, setEditCard] = useState(initialValues);
+  const { isLoading, cardList } = useFetch();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { user } = useSelector((state) => state.auth);
+  const deleteCard = (id) => {
+    DeleteUser(id);
+    navigate("/");
+    toastWarnNotify("Delete successfully");
+  };
+  const upDateCard = (id) => {
+    const mod = cardList.find((produc) => produc.id == id);
+    mod.ImgUrl = editCard.imgUrl;
+    mod.Title = editCard.title;
+    mod.content = editCard.content;
+    UpdateCard(mod);
+    navigate("/");
+    toastSuccessNotify("Edit succesfully");
+  };
   return (
-    <div>
-      {
-        <div className="rounded-lg shadow-lg bg-white max-w-sm w-[350px] h-[350px]">
-            <div className='w-[90%] h-36'>
-            {state.ImgUrl ? (<img className="rounded-t-lg w-48 mx-auto" src={state.ImgUrl} alt="" />) : (<img className="rounded-t-lg w-48 mx-auto" src={konu} alt="" />)}
-            </div>
-          <div className="p-6">
-            <h5 className="text-gray-900 text-xl font-medium mb-2">{state.Title}</h5>
-            <p className="text-gray-700 text-base mb-4 w-[90%] text-ellipsis overflow-hidden">
-              {state.content}
-            </p>
-            <p className="text-gray-700 text-base mb-4 w-[90%] text-ellipsis overflow-hidden">
+    <>
+      <Navbar />
+      <div className="flex items-center mt-32 flex-col">
+        <div className="rounded-lg shadow-md  max-w-sm w-[550px] h-[550px] relative bg-gray-200 shadow-black mb-12">
+          <div className="w-[90%] h-36">
+            {state.ImgUrl ? (
+              <img
+                className="rounded-t-lg w-40 mx-auto"
+                src={state.ImgUrl}
+                alt=""
+              />
+            ) : (
+              <img className="rounded-t-lg w-48 mx-auto" src={konu} alt="" />
+            )}
+          </div>
+          <div className="p-4 mt-12 bg-gray-400">
+            <h5 className="text-gray-900 text-xl mb-2 font-bold uppercase">
+              {state.Title}
+            </h5>
+            <p className="text-gray-700 text-[12px] mb-4 w-[90%]  overflow-hidden text-ellipsis">
               {state.history}
             </p>
-            <p className="text-gray-700 text-base mb-4 w-[90%] text-ellipsis overflow-hidden">
+            <p
+              style={{
+                width: "95%",
+                wordWrap: "break-word",
+              }}
+              className="text-md font-bold "
+            >
+              {state.content}
+            </p>
+          </div>
+          <div className="flex justify-start gap-2 items-center mt-4 ml-4">
+            <svg width="32" height="32" viewBox="0 0 256 256">
+              <path
+                fill="currentColor"
+                d="M172 120a44 44 0 1 1-44-44a44 44 0 0 1 44 44Zm60 8A104 104 0 1 1 128 24a104.2 104.2 0 0 1 104 104Zm-16 0a88 88 0 1 0-153.8 58.4a81.3 81.3 0 0 1 24.5-23a59.7 59.7 0 0 0 82.6 0a81.3 81.3 0 0 1 24.5 23A87.6 87.6 0 0 0 216 128Z"
+                className="block"
+              />
+            </svg>
+            <p className="text-gray-700 text-lg text-ellipsis overflow-hidden font-bold ">
               {state.email}
             </p>
-            
           </div>
-          <div><svg width="32" height="32" viewBox="0 0 36 36"><path fill="currentColor" d="M18 32.43a1 1 0 0 1-.61-.21C11.83 27.9 8 24.18 5.32 20.51C1.9 15.82 1.12 11.49 3 7.64c1.34-2.75 5.19-5 9.69-3.69A9.87 9.87 0 0 1 18 7.72a9.87 9.87 0 0 1 5.31-3.77c4.49-1.29 8.35.94 9.69 3.69c1.88 3.85 1.1 8.18-2.32 12.87c-2.68 3.67-6.51 7.39-12.07 11.71a1 1 0 0 1-.61.21ZM10.13 5.58A5.9 5.9 0 0 0 4.8 8.51c-1.55 3.18-.85 6.72 2.14 10.81A57.13 57.13 0 0 0 18 30.16a57.13 57.13 0 0 0 11.06-10.83c3-4.1 3.69-7.64 2.14-10.81c-1-2-4-3.59-7.34-2.65a8 8 0 0 0-4.94 4.2a1 1 0 0 1-1.85 0a7.93 7.93 0 0 0-4.94-4.2a7.31 7.31 0 0 0-2-.29Z" class="clr-i-outline clr-i-outline-path-1"/><path fill="none" d="M0 0h36v36H0z"/></svg></div>
 
+          <div className="flex justify-start items-center gap-8 ml-4 mt-4">
+            <div className="flex justify-center items-center gap-2">
+              <img src={like} alt="" className="w-10" />
+              <p className="text-lg font-bold text-red-400">{state.like}</p>
+            </div>
+            <img src={comment} alt="" className="w-10" />
+          </div>
         </div>
-      }
-      {(user?.email === state?.email) ? (<button>sadık</button>) :""}
-    </div>
-  )
-}
+        {user.email == state?.email ? (
+          <div className="flex gap-4">
+            {/* <button className="w-[120px] bg-slate-300 py-2 px-4 rounded-md text-lg font-bold text-slate-800 hover:text-white duration-300 "onClick={()=>upDateCard(state)}>Edit</button> */}
+            <div>
+              {/* Button trigger modal */}
+              <button
+                type="button"
+                className="w-[120px] bg-slate-300 py-2 px-4 rounded-md text-lg font-bold text-slate-800 hover:text-white duration-300 "
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Edit
+              </button>
+              {/* Modal */}
+              <div
+                className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+                id="exampleModal"
+                tabIndex={-1}
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog relative w-auto pointer-events-none">
+                  <div className="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                    <div className="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                      <h5
+                        className="text-xl leading-normal text-gray-800 font-bold"
+                        id="exampleModalLabel"
+                      >
+                        Edit Blog
+                      </h5>
+                      <button
+                        type="button"
+                        className="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center items-center mt-20 gap-4">
+                      <img src={blog} alt="" />
+                      <input
+                        type="text"
+                        placeholder="Title *"
+                        className="w-[400px] border-4 outline-none py-2 indent-2 shadow-md shadow-black rounded-md"
+                        value={editCard.title}
+                        onChange={(e) =>
+                          setEditCard({ ...editCard, title: e.target.value })
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="Image URL *
+  "
+                        className="w-[400px] border-4 outline-none py-2 indent-2 shadow-md shadow-black rounded-md"
+                        value={editCard.imgUrl}
+                        onChange={(e) =>
+                          setEditCard({ ...editCard, imgUrl: e.target.value })
+                        }
+                      />
+                      <div className="relative">
+                        <textarea
+                          name=""
+                          id=""
+                          cols="30"
+                          rows="10"
+                          className=" w-[400px] h-[300px] border-4 outline-none py-2 indent-2 shadow-md shadow-black rounded-md"
+                          placeholder="Content *"
+                          value={editCard.content}
+                          onChange={(e) =>
+                            setEditCard({
+                              ...editCard,
+                              content: e.target.value,
+                            })
+                          }
+                          wrap="hard"
+                        ></textarea>
 
-export default Details
+                        <p className="absolute bottom-4 right-4">
+                          {/* {`3000/ ${count?.length}`} */}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                      <button
+                        type="button"
+                        className="px-6
+            py-2.5
+            bg-purple-600
+            text-white
+            font-medium
+            text-xs
+            leading-tight
+            uppercase
+            rounded
+            shadow-md
+            hover:bg-purple-700 hover:shadow-lg
+            focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0
+            active:bg-purple-800 active:shadow-lg
+            transition
+            duration-150
+            ease-in-out"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        className="px-6
+        py-2.5
+        bg-blue-600
+        text-white
+        font-medium
+        text-xs
+        leading-tight
+        uppercase
+        rounded
+        shadow-md
+        hover:bg-blue-700 hover:shadow-lg
+        focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+        active:bg-blue-800 active:shadow-lg
+        transition
+        duration-150
+        ease-in-out
+        ml-1"
+                        onClick={() => upDateCard(state.id)}
+                        data-bs-dismiss="modal"
+                      >
+                        Save Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              className="w-[120px] bg-slate-300 py-2 px-6 rounded-md text-lg font-bold text-slate-800 hover:text-white duration-300 "
+              onClick={() => deleteCard(state.id)}
+            >
+              Delete
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+    </>
+  );
+};
+
+export default Details;

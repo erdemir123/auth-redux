@@ -49,3 +49,17 @@ export const UpdateUser=(mod)=>{
   updates["user/"+mod.id]=mod
   return update(ref(db), updates);
 }
+
+export const DeleteUser=(id)=>{
+  const db = getDatabase(firebase);
+  // const userRef=ref(db,"user/")
+  remove(ref(db,"user/"+id))
+  }
+
+  export const UpdateCard=(mod)=>{
+    const db=getDatabase(firebase)
+    const userRef=ref(db,"user/")
+    const updates = {};
+    updates["user/"+mod.id]=mod
+    return update(ref(db), updates);
+  }
