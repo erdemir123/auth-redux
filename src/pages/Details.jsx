@@ -9,7 +9,6 @@ import blog from "../asset/blog.png";
 import { DeleteUser, UpdateCard, useFetch } from "../auth/functions";
 import {
   toastSuccessNotify,
-  toastErrorNotify,
   toastWarnNotify,
 } from "../helper/Toastfy";
 
