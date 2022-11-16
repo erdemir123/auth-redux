@@ -16,19 +16,20 @@ import {
   toastWarnNotify,
 } from "../helper/Toastfy";
 const firebaseConfig = {
-  apiKey: "AIzaSyDjSI_ROzIdejIheZ2twAYT46njNDS-hKg",
-  authDomain: "redux-app-85e9c.firebaseapp.com",
-  projectId: "redux-app-85e9c",
-  storageBucket: "redux-app-85e9c.appspot.com",
-  messagingSenderId: "777502188729",
-  appId: "1:777502188729:web:3ac62475f62cc342db2768",
+  apiKey: "AIzaSyAlHwfxnhNTqs0HjN9Dvch6hF2c3PJrfKs",
+  authDomain: "firedata-redux.firebaseapp.com",
+  databaseURL: "https://firedata-redux-default-rtdb.firebaseio.com",
+  projectId: "firedata-redux",
+  storageBucket: "firedata-redux.appspot.com",
+  messagingSenderId: "904564410585",
+  appId: "1:904564410585:web:370d932af74c09d86256c8"
 };
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const firebase = initializeApp(firebaseConfig);
+export default firebase;
+export const auth = getAuth(firebase);
 export const provider = new GoogleAuthProvider();
-
-export const createUser = async (email, password, navigate, displayName) => {
+export const createUser = async (email, password, navigate, displayName, dispatch) => {
   try {
     let userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -40,8 +41,16 @@ export const createUser = async (email, password, navigate, displayName) => {
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
+    dispatch(
+      setUser({
+        username: displayName,
+        email: email,
+      //   password: password,
+      })
+    );
+    
     // SweetAlertsRegister();
-    navigate("/home");
+    navigate("/");
     console.log(userCredential);
   } catch (error) {
     // SweetAlertsError(error);
@@ -86,7 +95,7 @@ export const signIn = async (username, email, password, navigate, dispatch) => {
         password: password,
       })
     );
-    navigate("/home");
+    navigate("/");
     toastSuccessNotify("Login successfully!");
   } catch (error) {
     toastErrorNotify(error.message);
@@ -105,7 +114,7 @@ export const signUpProvider = (navigate, dispatch) => {
           // photoUrl: user.photoUrl,
         })
       );
-      navigate("/home");
+      navigate("/");
      toastSuccessNotify("Login successfully!!");
     })
     .catch((error) => {

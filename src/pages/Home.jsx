@@ -1,19 +1,19 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import { logOut } from '../auth/firebase'
-import Navbar from '../conponents/Navbar'
+import React from "react";
+import Navbar from "../conponents/Navbar";
+import { useFetch } from "../auth/functions";
+import Card from "../conponents/Card";
 
 const Home = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+  const { isLoading, cardList } = useFetch();
+  console.log(cardList);
   return (
     <div>
-      {/* <button onClick={()=>logOut(navigate,dispatch)}>sadık</button> */}
       <Navbar />
+      <div className="flex flex-wrap gap-6 justify-center items-center">
+      {cardList?.map((item,index)=><Card item={item} key={index}/>)}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

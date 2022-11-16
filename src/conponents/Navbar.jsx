@@ -7,7 +7,8 @@ import avatar from "../asset/avatar.png"
 const Navbar = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {user} = useSelector((state)=>state)
+    const {user} = useSelector((state)=>state.auth)
+    // console.log(user)
   return (
     <>
       <nav className="w-full flex flex-wrap items-center justify-between py-3 bg-white dark:bg-gray-900 dark:text-white shadow-lg navbar navbar-expand-lg fixed-top">
@@ -20,7 +21,7 @@ const Navbar = () => {
           <div className="flex items-center relative">
             {/* Icon */}
             {user && (
-              <h5 className="mr-2 capitalize">{user?.displayName}</h5>
+              <h5 className="mr-2 capitalize">{user.username}</h5>
             )}
             <div className="dropdown relative">
               <span
@@ -43,23 +44,31 @@ const Navbar = () => {
                 className="dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none left-auto right-0"
                 aria-labelledby="dropdownMenuButton2"
               >
-                <li>
+                {!user?.email && <li>
                   <Link
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     to="/register"
                   >
                     Register
                   </Link>
-                </li>
-                <li>
+                </li>}
+                {!user?.email && <li>
                   <Link
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     to="/login"
                   >
                     Login
                   </Link>
-                </li>
-                <li>
+                  </li>}
+                  {user?.email && <li>
+                  <Link
+                    className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
+                    to="/new"
+                  >
+                    New
+                  </Link>
+                  </li>}
+               {user?.email &&  <li>
                   <span
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     role="button"
@@ -67,14 +76,14 @@ const Navbar = () => {
                   >
                     Logout
                   </span>
-                </li>
+                </li>}
               </ul>
             </div>
           </div>
           {/* Right elements */}
         </div>
       </nav>
-      <div className="h-[52px]"></div>
+      <div className="h-[80px]"></div>
      </>
   );
 };
