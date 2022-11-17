@@ -37,9 +37,7 @@ const Details = () => {
     navigate("/");
     toastSuccessNotify("Edit succesfully");
   };
-  useEffect(()=>{
-
-  },[])
+  // console.log(state)
   return (
     <>
       <Navbar />
@@ -240,7 +238,7 @@ const Details = () => {
         )}
         
       </div>
-      {/* {state.comment.map((item,index)=><p key={index}>{item}</p>)} */}
+      {state.comment.map((item,index)=><p key={index}>{item}</p>)}
     </>
   );
 };
