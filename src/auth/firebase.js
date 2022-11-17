@@ -111,7 +111,6 @@ export const signUpProvider = (navigate, dispatch) => {
         setUser({
           displayName: user.displayName,
           email: user.email,
-          // photoUrl: user.photoUrl,
         })
       );
       navigate("/");
