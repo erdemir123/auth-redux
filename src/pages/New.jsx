@@ -16,7 +16,7 @@ const New = () => {
   const { user } = useSelector((state) => state.auth);
   const [info, setInfo] = useState(initialValues);
   const [count, setCount] = useState();
-  const [comment, setComment] = useState([1, 2, 3]);
+  const [comment, setComment] = useState(["sadık"]);
   const [like, setLike] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +32,7 @@ const New = () => {
     });
     if (info.title && info.content && info.imgUrl) {
       if (count?.length > 100) {
+        setComment(history)
         AddUser(info, user, history, like, comment);
         setInfo(initialValues);
         navigate("/");

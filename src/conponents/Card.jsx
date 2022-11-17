@@ -9,7 +9,7 @@ const Card = ({ item }) => {
   const navigate = useNavigate();
   const [likethink, setLikeThink] = useState(false);
   const { isLoading, cardList } = useFetch();
-  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState("");
 
   const modalLike = (id) => {
     console.log(id);
@@ -24,14 +24,16 @@ const Card = ({ item }) => {
       UpdateUser(mod);
     }
   };
-  const addComment = (comment) => {
-    // const commentArray = cardList?.find((produc) => produc.id == id);
+  const addComment = (id) => {
+    const commentArray = cardList?.find((produc) => produc.id == id);
     // console.log(cardList.filter((item)=>item.id == comment));
-    // console.log(commentArray);
-    // console.log(item.id);
-    // commentArray.comment.push(comment)
-    // UpdateComment(commentArray)
-    console.log(comment)
+    console.log(commentArray);
+    // console.log(id);
+    commentArray?.comment.push(comments)
+    UpdateComment(commentArray)
+    // console.log(commentArray)
+    // const ksd = cardList.map((item)=>item.comment)
+    // console.log(ksd.shift());
   };
   return (
     <>
@@ -89,14 +91,13 @@ const Card = ({ item }) => {
             alt=""
             className="w-10 mb-1"
             data-bs-toggle="modal"
-            data-bs-target="#staticBackdrop"
-            
+            data-bs-target={`#${item.id}`}
           ></img>
           <div>
             {/* Modal */}
             <div
               className="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-              id="staticBackdrop"
+              id={`${item.id}`}
               aria-labelledby="staticBackdropLabel"
               aria-hidden="true"
             >
@@ -118,9 +119,9 @@ const Card = ({ item }) => {
                   </div>
                   <textarea
                     className="modal-body relative p-4 outline-none"
-                    value={comment.yourComment}
+                    value={comments.yourComment}
                     placeholder="write your comment"
-                    onChange={(e) => setComment(e.target.value)}
+                    onChange={(e) => setComments(e.target.value)}
                   ></textarea>
                   <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
                     <button

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import konu from "../asset/konu.jpg";
@@ -37,6 +37,9 @@ const Details = () => {
     navigate("/");
     toastSuccessNotify("Edit succesfully");
   };
+  useEffect(()=>{
+
+  },[])
   return (
     <>
       <Navbar />
@@ -230,11 +233,14 @@ const Details = () => {
             >
               Delete
             </button>
+            
           </div>
         ) : (
           ""
         )}
+        
       </div>
+      {/* {state.comment.map((item,index)=><p key={index}>{item}</p>)} */}
     </>
   );
 };

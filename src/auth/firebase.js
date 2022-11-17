@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider
 } from "firebase/auth";
 import { clearUser, setUser } from "../features/authSlice";
 import {
@@ -62,7 +63,7 @@ export const userObserver = (dispatch) => {
   //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const { email, displayName, photoURL } = user;
+      const { email, displayName } = user;
       dispatch(
         setUser({
           username: displayName,
@@ -121,3 +122,29 @@ export const signUpProvider = (navigate, dispatch) => {
       toastErrorNotify(error);
     });
 };
+
+
+export const signUpProviderFaceBook= (navigate, dispatch) => {
+  const provider = new FacebookAuthProvider()
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user
+      // const credential = FacebookAuthProvider.credentialFromResult(result);
+    // const accessToken = credential.accessToken
+      dispatch(
+        setUser({
+          displayName: user.displayName,
+          email: user.email,
+        })
+      )
+      navigate("/");
+      console.log("first")
+     toastSuccessNotify("Login successfully!!");
+    })
+    .catch((error) => {
+      toastErrorNotify(error);
+      console.log("sadık")
+    });
+
+
+}
