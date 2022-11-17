@@ -13,30 +13,33 @@ const New = () => {
     imgUrl: "",
     content: "",
   };
-  const {user} = useSelector((state)=>state.auth)
+  const { user } = useSelector((state) => state.auth);
   const [info, setInfo] = useState(initialValues);
   const [count, setCount] = useState();
-  const [like,setLike]=useState(0)
+  const [comment, setComment] = useState([1, 2, 3]);
+  const [like, setLike] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let asd = new Date()
-    let date = new Date(`${asd.getFullYear()}-${asd.getMonth()+1}-${asd.getDate()}`)
-    let history = date.toLocaleDateString("tr-TR",{
-      weekday:"long",month:"long",day:"numeric",year:"numeric"
-    })
-    if(info.title && info.content && info.imgUrl){
-      if(count?.length>100){
-        AddUser(info,user,history,like);
-    setInfo(initialValues);
-    navigate("/");
+    let asd = new Date();
+    let date = new Date(
+      `${asd.getFullYear()}-${asd.getMonth() + 1}-${asd.getDate()}`
+    );
+    let history = date.toLocaleDateString("tr-TR", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    if (info.title && info.content && info.imgUrl) {
+      if (count?.length > 100) {
+        AddUser(info, user, history, like, comment);
+        setInfo(initialValues);
+        navigate("/");
+      } else {
+        toastWarnNotify("Contente minimum 100 harf yazılmalıdır");
       }
-      else{
-        toastWarnNotify("Contente minimum 100 harf yazılmalıdır")
-      }
-
-    }
-    else{
-      toastWarnNotify("Form Boş Bırakılamaz")
+    } else {
+      toastWarnNotify("Form Boş Bırakılamaz");
     }
   };
 

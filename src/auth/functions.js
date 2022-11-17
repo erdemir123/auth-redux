@@ -28,7 +28,7 @@ export const useFetch = () => {
   }, []);
   return { isLoading, cardList };
 };
-export const AddUser=(info,user,history,like)=>{
+export const AddUser=(info,user,history,like,comment)=>{
     const db=getDatabase(firebase)
     const userRef=ref(db,"user/")
     const newUserRef=push(userRef)
@@ -38,7 +38,8 @@ export const AddUser=(info,user,history,like)=>{
         content:info.content,
         email:user?.email,
         history:history,
-        like : like
+        like : like,
+        comment:comment
     })
 }
 
@@ -57,6 +58,13 @@ export const DeleteUser=(id)=>{
   }
 
   export const UpdateCard=(mod)=>{
+    const db=getDatabase(firebase)
+    const userRef=ref(db,"user/")
+    const updates = {};
+    updates["user/"+mod.id]=mod
+    return update(ref(db), updates);
+  }
+  export const UpdateComment=(mod)=>{
     const db=getDatabase(firebase)
     const userRef=ref(db,"user/")
     const updates = {};
