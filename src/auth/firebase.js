@@ -46,15 +46,11 @@ export const createUser = async (email, password, navigate, displayName, dispatc
       setUser({
         username: displayName,
         email: email,
-      //   password: password,
       })
     );
-    
-    // SweetAlertsRegister();
     navigate("/");
-    console.log(userCredential);
+
   } catch (error) {
-    // SweetAlertsError(error);
     console.log(error);
   }
 };
@@ -68,7 +64,7 @@ export const userObserver = (dispatch) => {
         setUser({
           username: displayName,
           email: email,
-        //   password: password,
+        
         })
       );
       
@@ -86,16 +82,9 @@ export const logOut = (navigate, dispatch) => {
   toastWarnNotify("logged out successfully");
   navigate("/");
 };
-export const signIn = async (username, email, password, navigate, dispatch) => {
+export const signIn = async (email, password, navigate) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    dispatch(
-      setUser({
-        username: username,
-        email: email,
-        password: password,
-      })
-    );
     navigate("/");
     toastSuccessNotify("Login successfully!");
   } catch (error) {
@@ -110,15 +99,15 @@ export const signUpProvider = (navigate, dispatch) => {
     .then(({ user }) => {
       dispatch(
         setUser({
-          displayName: user.displayName,
+          username: user.displayName,
           email: user.email,
         })
       );
       navigate("/");
      toastSuccessNotify("Login successfully!!");
+     console.log(user.displayName);
     })
     .catch((error) => {
-      // Handle Errors here.
       toastErrorNotify(error);
     });
 };
@@ -129,8 +118,6 @@ export const signUpProviderFaceBook= (navigate, dispatch) => {
   signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user
-      // const credential = FacebookAuthProvider.credentialFromResult(result);
-    // const accessToken = credential.accessToken
       dispatch(
         setUser({
           displayName: user.displayName,

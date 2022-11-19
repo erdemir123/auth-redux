@@ -1,9 +1,9 @@
-// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signIn, signUpProvider, signUpProviderFaceBook } from "../auth/firebase";
-// import { setUser } from "../features/authSlice";
+
 
 const Login = () => {
   const [loginUser, setLoginUser] = useState({
@@ -18,12 +18,11 @@ const Login = () => {
   };
   const handleFacebook = () => {
     signUpProviderFaceBook(navigate, dispatch);
-    console.log("sadık");
   };
   const handleClick = (e) => {
     e.preventDefault();
     signIn(
-      loginUser.username,
+      // loginUser.username,
       loginUser.email,
       loginUser.password,
       navigate,
@@ -53,21 +52,6 @@ const Login = () => {
                 onClick={handleGoogle}
               >
                 {/* Google */}
-                <svg width="32" height="32" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M12 11v2h2v2H9V9h7c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2v-4h-4z"
-                  />
-                </svg>
-              </button>
-              <button
-                type="button"
-                data-mdb-ripple="true"
-                data-mdb-ripple-color="light"
-                className="inline-block p-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mx-1"
-                onClick={handleFacebook}
-              >
-                {/* Facebook */}
                 <svg width="32" height="32" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"

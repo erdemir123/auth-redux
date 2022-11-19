@@ -11,6 +11,7 @@ import {
   toastSuccessNotify,
   toastWarnNotify,
 } from "../helper/Toastfy";
+import Comment from "../conponents/Comment";
 
 const Details = () => {
   const initialValues = {
@@ -19,9 +20,10 @@ const Details = () => {
     content: "",
   };
   const [editCard, setEditCard] = useState(initialValues);
-  const { isLoading, cardList } = useFetch();
+  const { cardList } = useFetch();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [show,setShow]=useState(false)
   const { user } = useSelector((state) => state.auth);
   const deleteCard = (id) => {
     DeleteUser(id);
@@ -37,7 +39,9 @@ const Details = () => {
     navigate("/");
     toastSuccessNotify("Edit succesfully");
   };
-  // console.log(state)
+  
+  const newArray = (state?.comment)?.map((item)=>item)
+  newArray?.shift()
   return (
     <>
       <Navbar />
@@ -236,9 +240,10 @@ const Details = () => {
         ) : (
           ""
         )}
-        
-      </div>
-      {state.comment.map((item,index)=><p key={index}>{item}</p>)}
+      </div >
+      <button className=" font-bold bg-slate-300 text-2xl text-center mt-4 w-[300px] border-2 block mx-auto shadow-md shadow-black rounded-lg active:scale-95 " onClick={()=>setShow(!show)}>Blog Comment</button>
+      {show && (newArray ? (newArray?.map((item,index)=><Comment key={index} item={item}/>)) : <div className="ml">No Comment</div>)}
+      <button className="fixed bottom-2 right-3 px-2 py-2 bg-gray-300 rounded-md shadow-md shadow-black" onClick={()=>navigate("/")}>back</button>
     </>
   );
 };

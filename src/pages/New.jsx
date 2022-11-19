@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../conponents/Navbar";
 import blog from "../asset/blog.png";
 import { AddUser, useFetch } from "../auth/functions";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toastWarnNotify } from "../helper/Toastfy";
 import { useSelector } from "react-redux";
 
@@ -20,9 +20,9 @@ const New = () => {
   const [like, setLike] = useState(0);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let asd = new Date();
+    let time = new Date();
     let date = new Date(
-      `${asd.getFullYear()}-${asd.getMonth() + 1}-${asd.getDate()}`
+      `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`
     );
     let history = date.toLocaleDateString("tr-TR", {
       weekday: "long",

@@ -7,7 +7,6 @@ import loading from "../asset/loading.gif";
 
 const Home = () => {
   const { isLoading, cardList } = useFetch();
-
   return (
     <div>
       <Navbar />
@@ -24,9 +23,7 @@ const Home = () => {
             </p>
           )}
           {cardList?.map((item, index) => (
-           
             <Card item={item} key={index} />
-           
           ))}
         </div>
       ) : (
