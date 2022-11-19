@@ -2,7 +2,7 @@ import React from "react";
 const Comment = ({ item }) => {
     
   return (
-    <div className="bg-gray-500 text-white font-bold  text-xl pl-2 mt-2 flex gap-8 items-center relative">
+    <div className="bg-gray-500 text-white font-bold  text-xl pl-2 mt-2 flex gap-8 items-center pb-5 relative">
         <div>
         <svg width="40" height="40" viewBox="0 0 24 24">
         <path fill="orange" d="M18 14V6h-5v8l2.5-1.5z" />

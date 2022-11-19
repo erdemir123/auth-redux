@@ -242,7 +242,7 @@ const Details = () => {
           ""
         )}
       </div >
-      <button className=" font-bold bg-slate-300 text-2xl text-center mt-4 w-[300px] border-2 block mx-auto shadow-md shadow-black rounded-lg active:scale-95 mb-6" onClick={()=>setShow(!show)}>{show ? `Close Comments (${state?.comment.length -1})`  : `Show Comments (${state?.comment.length -1})`}</button>
+      <button className=" font-bold bg-slate-300 text-2xl text-center mt-2 w-[300px] border-2 block mx-auto shadow-md shadow-black rounded-lg active:scale-95 mb-6" onClick={()=>setShow(!show)}>{show ? `Close Comments (${state?.comment.length -1})`  : `Show Comments (${state?.comment.length -1})`}</button>
       {show && (newArray ? (newArray?.map((item,index)=><Comment key={index} item={item}/>)) : <div className="ml">No Comment</div>)}
       <button className="fixed bottom-4 right-3 px-2 py-2 bg-gray-300 rounded-md shadow-md shadow-black" onClick={()=>navigate("/")}>back</button>
     </div>
