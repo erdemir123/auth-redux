@@ -44,7 +44,7 @@ const Details = () => {
   return (
     <div className="overflow-hidden mb-4">
       <Navbar />
-      <div className="flex items-center mt-12 flex-col">
+      <div className="flex items-center mt-2 flex-col">
         <div className="rounded-lg shadow-md  max-w-sm w-[550px] h-[550px] relative bg-gray-200 shadow-black mb-12">
           <div className="w-[90%] h-36">
             {state.ImgUrl ? (
