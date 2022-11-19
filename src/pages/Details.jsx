@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import konu from "../asset/konu.jpg";
 import like from "../asset/like.png";
-import comment from "../asset/comment.png";
+import commentimg from "../asset/commentn.svg";
 import Navbar from "../conponents/Navbar";
 import blog from "../asset/blog.png";
 import { DeleteUser, UpdateCard, useFetch } from "../auth/functions";
@@ -39,18 +39,17 @@ const Details = () => {
     navigate("/");
     toastSuccessNotify("Edit succesfully");
   };
-  
   const newArray = (state?.comment)?.map((item)=>item)
   newArray?.shift()
   return (
-    <>
+    <div className="overflow-hidden mb-4">
       <Navbar />
-      <div className="flex items-center mt-32 flex-col">
+      <div className="flex items-center mt-12 flex-col">
         <div className="rounded-lg shadow-md  max-w-sm w-[550px] h-[550px] relative bg-gray-200 shadow-black mb-12">
           <div className="w-[90%] h-36">
             {state.ImgUrl ? (
               <img
-                className="rounded-t-lg w-40 mx-auto"
+              className="rounded-full w-40 h-40 mx-auto mt-4 m-2 shadow-md shadow-gray-500 hover:scale-105 duration-1000 hover:translate-x-2 hover:shadow-2xl hover:shadow-gray-800"
                 src={state.ImgUrl}
                 alt=""
               />
@@ -93,12 +92,14 @@ const Details = () => {
               <img src={like} alt="" className="w-10" />
               <p className="text-lg font-bold text-red-400">{state.like}</p>
             </div>
-            <img src={comment} alt="" className="w-10" />
+            <div className="flex justify-center items-center gap-2">
+            <img src={commentimg} alt="" className="w-10" />
+            <p className="text-lg font-bold text-red-400">{state?.comment.length -1}</p>
+            </div>
           </div>
         </div>
         {user.email == state?.email ? (
           <div className="flex gap-4">
-            {/* <button className="w-[120px] bg-slate-300 py-2 px-4 rounded-md text-lg font-bold text-slate-800 hover:text-white duration-300 "onClick={()=>upDateCard(state)}>Edit</button> */}
             <div>
               {/* Button trigger modal */}
               <button
@@ -172,9 +173,9 @@ const Details = () => {
                           wrap="hard"
                         ></textarea>
 
-                        <p className="absolute bottom-4 right-4">
-                          {/* {`3000/ ${count?.length}`} */}
-                        </p>
+                        {/* <p className="absolute bottom-4 right-4">
+                          {`3000/ ${count?.length}`}
+                        </p> */}
                       </div>
                     </div>
                     <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
@@ -241,10 +242,10 @@ const Details = () => {
           ""
         )}
       </div >
-      <button className=" font-bold bg-slate-300 text-2xl text-center mt-4 w-[300px] border-2 block mx-auto shadow-md shadow-black rounded-lg active:scale-95 " onClick={()=>setShow(!show)}>Blog Comment</button>
+      <button className=" font-bold bg-slate-300 text-2xl text-center mt-4 w-[300px] border-2 block mx-auto shadow-md shadow-black rounded-lg active:scale-95 mb-6" onClick={()=>setShow(!show)}>{show ? `Close Comments (${state?.comment.length -1})`  : `Show Comments (${state?.comment.length -1})`}</button>
       {show && (newArray ? (newArray?.map((item,index)=><Comment key={index} item={item}/>)) : <div className="ml">No Comment</div>)}
-      <button className="fixed bottom-2 right-3 px-2 py-2 bg-gray-300 rounded-md shadow-md shadow-black" onClick={()=>navigate("/")}>back</button>
-    </>
+      <button className="fixed bottom-4 right-3 px-2 py-2 bg-gray-300 rounded-md shadow-md shadow-black" onClick={()=>navigate("/")}>back</button>
+    </div>
   );
 };
 

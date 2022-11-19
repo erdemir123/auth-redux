@@ -49,7 +49,7 @@ export const createUser = async (email, password, navigate, displayName, dispatc
       })
     );
     navigate("/");
-
+    toastSuccessNotify("Kayıt Başarılı...!")
   } catch (error) {
     console.log(error);
   }
@@ -72,21 +72,20 @@ export const userObserver = (dispatch) => {
         dispatch(
             clearUser()
           );
-      console.log("user signed out");
     }
   });
 };
 export const logOut = (navigate, dispatch) => {
   signOut(auth);
   dispatch(clearUser());
-  toastWarnNotify("logged out successfully");
+  toastWarnNotify("Çıkış Yapıldı..");
   navigate("/");
 };
 export const signIn = async (email, password, navigate) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     navigate("/");
-    toastSuccessNotify("Login successfully!");
+    toastSuccessNotify("Giriş Başarılı...!");
   } catch (error) {
     toastErrorNotify(error.message);
   }
@@ -104,7 +103,7 @@ export const signUpProvider = (navigate, dispatch) => {
         })
       );
       navigate("/");
-     toastSuccessNotify("Login successfully!!");
+     toastSuccessNotify("Giriş Başarılı...!");
      console.log(user.displayName);
     })
     .catch((error) => {
@@ -125,12 +124,11 @@ export const signUpProviderFaceBook= (navigate, dispatch) => {
         })
       )
       navigate("/");
-      console.log("first")
-     toastSuccessNotify("Login successfully!!");
+      
+     toastSuccessNotify("Giriş Başarılı...!");
     })
     .catch((error) => {
       toastErrorNotify(error);
-      console.log("sadık")
     });
 
 

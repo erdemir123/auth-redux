@@ -48,7 +48,7 @@ const Navbar = () => {
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     to="/register"
                   >
-                    Register
+                    Kayıt Ol 
                   </Link>
                 </li>}
                 {!user?.email && <li>
@@ -56,7 +56,7 @@ const Navbar = () => {
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     to="/login"
                   >
-                    Login
+                    Giriş
                   </Link>
                   </li>}
                   {user?.email && <li>
@@ -64,7 +64,7 @@ const Navbar = () => {
                     className="dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100"
                     to="/new"
                   >
-                    New
+                    Yeni Blog
                   </Link>
                   </li>}
                {user?.email &&  <li>
@@ -73,7 +73,7 @@ const Navbar = () => {
                     role="button"
                     onClick={() => logOut(navigate,dispatch)}
                   >
-                    Logout
+                    Çıkış
                   </span>
                 </li>}
               </ul>
