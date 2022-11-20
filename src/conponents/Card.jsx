@@ -35,7 +35,7 @@ const Card = ({ item }) => {
       UpdateComment(commentArray);
       toastSuccessNotify("Yorum Eklendi");
     } else {
-      toastWarnNotify("girilen harf sayısı 100den fazla olmalıdır");
+      toastWarnNotify("girilen harf sayısı 20den fazla olmalıdır");
     }
   };
   useEffect(() => {
@@ -43,7 +43,7 @@ const Card = ({ item }) => {
   }, [comments]);
   return (
     <>
-      <div className="rounded-lg shadow-md  max-w-sm w-[350px] relative bg-gray-200 shadow-black mb-12 py-2">
+      <div className="rounded-lg shadow-md  max-w-sm w-[350px] relative  bg-gray-200 shadow-black mb-12 py-6">
         <div
           onClick={() =>
             user.email
@@ -167,7 +167,7 @@ const Card = ({ item }) => {
                   onChange={(e) => setComments(e.target.value)}
                 ></textarea>
 
-                <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 rounded-b-md">
                   <p className="absolute bottom-16">3000/{count?.length}</p>
                   <button
                     type="button"
