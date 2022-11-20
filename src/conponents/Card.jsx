@@ -5,7 +5,7 @@ import { UpdateComment, UpdateUser, useFetch } from "../auth/functions";
 import like from "../asset/like.png";
 import commentimg from "../asset/commentn.svg";
 import { useSelector } from "react-redux";
-import { toastWarnNotify,toastSuccessNotify } from "../helper/Toastfy";
+import { toastWarnNotify, toastSuccessNotify } from "../helper/Toastfy";
 
 const Card = ({ item }) => {
   const [count, setCount] = useState();
@@ -27,26 +27,31 @@ const Card = ({ item }) => {
     }
   };
   const addComment = (id) => {
-    if(count.length>=100){
+    if (count.length >= 20) {
       const commentArray = cardList?.find((produc) => produc.id == id);
       console.log(commentArray);
-      const userComments={"email":user.email,"comments":comments}
+      const userComments = { email: user.email, comments: comments };
       commentArray?.comment.push(userComments);
       UpdateComment(commentArray);
-      toastSuccessNotify("Yorum Eklendi")
+      toastSuccessNotify("Yorum Eklendi");
+    } else {
+      toastWarnNotify("girilen harf sayısı 100den fazla olmalıdır");
     }
-    else{
-      toastWarnNotify("girilen harf sayısı 100den fazla olmalıdır")
-    }
-    
   };
   useEffect(() => {
     setCount(comments.split(""));
-  }, [comments])
+  }, [comments]);
   return (
     <>
       <div className="rounded-lg shadow-md  max-w-sm w-[350px] relative bg-gray-200 shadow-black mb-12 py-2">
-        <div onClick={()=>user.email ? "" : toastWarnNotify("Detayları görmek için giriş yapmalısınız...")} className="cursor-pointer">
+        <div
+          onClick={() =>
+            user.email
+              ? ""
+              : toastWarnNotify("Detayları görmek için giriş yapmalısınız...")
+          }
+          className="cursor-pointer"
+        >
           <div className="w-[90%] h-36 mt-2">
             {item.ImgUrl ? (
               <img
@@ -106,7 +111,11 @@ const Card = ({ item }) => {
             <img
               src={like}
               alt=""
-              onClick={()=>user.email ? modalLike(item.id) : toastWarnNotify("Beğeni için lütfen giriş yapmalısınız...")}
+              onClick={() =>
+                user.email
+                  ? modalLike(item.id)
+                  : toastWarnNotify("Beğeni için lütfen giriş yapmalısınız...")
+              }
               className="w-10 cursor-pointer"
             />
             <p className="text-lg font-bold text-red-400">{item.like}</p>
@@ -114,15 +123,16 @@ const Card = ({ item }) => {
           {user.email ? (
             <div className="flex justify-center items-center gap-2 mb-2">
               <img
-              src={commentimg}
-              alt=""
-              className="w-10 mb-1 cursor-pointer"
-              data-bs-toggle="modal"
-              data-bs-target={`#${item.id}`}
-            />
-            <p className="text-lg font-bold text-red-400">{item?.comment?.length -1}</p>
+                src={commentimg}
+                alt=""
+                className="w-10 mb-1 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target={`#${item.id}`}
+              />
+              <p className="text-lg font-bold text-red-400">
+                {item?.comment?.length - 1}
+              </p>
             </div>
-            
           ) : (
             ""
           )}
@@ -156,9 +166,9 @@ const Card = ({ item }) => {
                   placeholder="write your comment"
                   onChange={(e) => setComments(e.target.value)}
                 ></textarea>
-                
+
                 <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-                <p className="absolute bottom-16">3000/{count?.length}</p>
+                  <p className="absolute bottom-16">3000/{count?.length}</p>
                   <button
                     type="button"
                     className="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -168,11 +178,12 @@ const Card = ({ item }) => {
                   </button>
                   <button
                     className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
-                    data-bs-dismiss={count?.length>=100 && "modal"}
+                    data-bs-dismiss={count?.length >= 100 && "modal"}
                     onClick={() => addComment(item.id)}
                   >
                     Add Comment
                   </button>
+                  
                 </div>
               </div>
             </div>
