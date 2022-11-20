@@ -31,13 +31,13 @@ const New = () => {
       year: "numeric",
     });
     if (info.title && info.content && info.imgUrl) {
-      if (count?.length > 100) {
+      if (count?.length >20) {
         setComment(history)
         AddUser(info, user, history, like, comment);
         setInfo(initialValues);
         navigate("/");
       } else {
-        toastWarnNotify("Contente minimum 100 harf yazılmalıdır");
+        toastWarnNotify("Contente minimum 20 harf yazılmalıdır");
       }
     } else {
       toastWarnNotify("Form Boş Bırakılamaz");
@@ -63,7 +63,7 @@ const New = () => {
             onChange={(e) => setInfo({ ...info, title: e.target.value })}
           />
           <input
-            type="text"
+            type="url"
             placeholder="Image URL *
 "
             className="w-[400px] border-4 outline-none py-2 indent-2 shadow-md shadow-black rounded-md"

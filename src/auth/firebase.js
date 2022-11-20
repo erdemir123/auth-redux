@@ -48,10 +48,10 @@ export const createUser = async (email, password, navigate, displayName, dispatc
         email: email,
       })
     );
-    navigate("/");
+    navigate("/login");
     toastSuccessNotify("Kayıt Başarılı...!")
   } catch (error) {
-    console.log(error);
+    toastErrorNotify(error.message)
   }
 };
 
@@ -64,7 +64,6 @@ export const userObserver = (dispatch) => {
         setUser({
           username: displayName,
           email: email,
-        
         })
       );
       
@@ -107,7 +106,7 @@ export const signUpProvider = (navigate, dispatch) => {
      console.log(user.displayName);
     })
     .catch((error) => {
-      toastErrorNotify(error);
+      toastErrorNotify(error.message);
     });
 };
 
@@ -128,7 +127,7 @@ export const signUpProviderFaceBook= (navigate, dispatch) => {
      toastSuccessNotify("Giriş Başarılı...!");
     })
     .catch((error) => {
-      toastErrorNotify(error);
+      toastErrorNotify(error.message);
     });
 
 
